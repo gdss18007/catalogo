@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Outlet das Marcas</title>
+  <meta name="description" content="Vitrine online Outlet das Marcas— veja nossos produtos e entre em contato pelo WhatsApp ou marketplace." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
+  <!-- Fonts -->
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Design Tokens ──────────────────────────────── */
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --text-hero: clamp(2.5rem, 1rem + 5vw, 5rem);
+
+      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
+      --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem;
+      --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
+      --space-16: 4rem; --space-20: 5rem;
+
+      --color-bg: #faf7f4;
+      --color-surface: #fff;
+      --color-surface-2: #f5f2ee;
+      --color-surface-offset: #ede9e3;
+      --color-divider: #ddd9d3;
+      --color-border: #d0ccc5;
+      --color-text: #1e1b16;
+      --color-text-muted: #6b6760;
+      --color-text-faint: #b0ada8;
+      --color-text-inverse: #000000;
+
+      /* Brand */
+      --color-primary: #FFC7C7;
+      --color-primary-hover: #e8b0b0;
+      --color-primary-active: #d69d9d;
+      --color-primary-highlight: #fff0f0;
+
+      /* WhatsApp green */
+      --color-wpp: #25d366;
+      --color-wpp-hover: #1db954;
+
+      --radius-sm: 0.375rem; --radius-md: 0.5rem;
+      --radius-lg: 0.75rem; --radius-xl: 1rem;
+      --radius-full: 9999px;
+
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+
+      --shadow-sm: 0 1px 3px oklch(0.15 0.02 50 / 0.08);
+      --shadow-md: 0 4px 16px oklch(0.15 0.02 50 / 0.10);
+      --shadow-lg: 0 12px 40px oklch(0.15 0.02 50 / 0.14);
+
+      --font-display: 'Cabinet Grotesk', 'Helvetica Neue', sans-serif;
+      --font-body: 'Satoshi', 'Inter', sans-serif;
+      --content-default: 1200px;
+    }
+
+    [data-theme="dark"] {
+      --color-bg: #141210;
+      --color-surface: #1c1a17;
+      --color-surface-2: #22201c;
+      --color-surface-offset: #2a2822;
+      --color-divider: #302e28;
+      --color-border: #3a3830;
+      --color-text: #e8e5e0;
+      --color-text-muted: #8a8780;
+      --color-text-faint: #5a5853;
+      --color-text-inverse: #141210;
+      /* Brand */
+      --color-primary: #FFC7C7;
+      --color-primary-hover: #e8b0b0;
+      --color-primary-active: #d69d9d;
+      --color-primary-highlight: #fff0f0;
+      --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.25);
+      --shadow-md: 0 4px 16px oklch(0 0 0 / 0.35);
+      --shadow-lg: 0 12px 40px oklch(0 0 0 / 0.45);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme]) {
+        --color-bg: #141210; --color-surface: #1c1a17;
+        --color-surface-2: #22201c; --color-surface-offset: #2a2822;
+        --color-divider: #302e28; --color-border: #3a3830;
+        --color-text: #e8e5e0; --color-text-muted: #8a8780;
+        --color-text-faint: #5a5853; --color-text-inverse: #141210;
+        --color-primary: #f07040; --color-primary-hover: #e85b1a;
+        --color-primary-highlight: #3a2218;
+        --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.25);
+        --shadow-md: 0 4px 16px oklch(0 0 0 / 0.35);
+        --shadow-lg: 0 12px 40px oklch(0 0 0 / 0.45);
+      }
+    }
+
+    /* ─── Base ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { min-height: 100dvh; line-height: 1.6; font-family: var(--font-body); font-size: var(--text-base); color: var(--color-text); background: var(--color-bg); }
+    img, picture, video { display: block; max-width: 100%; height: auto; }
+    button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+    a { color: inherit; text-decoration: none; }
+    h1,h2,h3,h4 { text-wrap: balance; line-height: 1.15; font-family: var(--font-display); }
+    p, li { text-wrap: pretty; }
+    ul { list-style: none; }
+    a, button, [role="button"] { transition: color var(--transition), background var(--transition), border-color var(--transition), box-shadow var(--transition), opacity var(--transition), transform var(--transition); }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius-sm); }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+    /* ─── Layout ─────────────────────────────────────── */
+    .container { max-width: var(--content-default); margin-inline: auto; padding-inline: var(--space-6); }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+
+    /* ─── Topbar ─────────────────────────────────────── */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-divider);
+      box-shadow: var(--shadow-sm);
+    }
+    .topbar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-block: var(--space-3);
+    }
+    .topbar-logo {
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .topbar-logo svg { width: 40px; height: 40px; flex-shrink: 0; }
+    .topbar-logo-text { display: flex; flex-direction: column; line-height: 1.15; }
+    .topbar-logo-text .brand-name {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: var(--text-lg); color: var(--color-primary);
+      letter-spacing: -0.02em;
+    }
+    .topbar-logo-text .brand-tagline {
+      font-size: var(--text-xs); color: var(--color-text-muted);
+      font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .topbar-actions { display: flex; align-items: center; gap: var(--space-3); }
+    .theme-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: var(--radius-full);
+      color: var(--color-text-muted);
+    }
+    .theme-toggle:hover { background: var(--color-surface-offset); color: var(--color-text); }
+    .topbar-wpp-btn {
+      display: flex; align-items: center; gap: var(--space-2);
+      background: var(--color-wpp); color: #fff;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm); font-weight: 600;
+    }
+    .topbar-wpp-btn:hover { background: var(--color-wpp-hover); }
+    .topbar-wpp-btn svg { flex-shrink: 0; }
+
+    /* ─── Hero Banner ────────────────────────────────── */
+    .hero {
+      position: relative; overflow: hidden;
+      background: var(--color-primary);
+      min-height: clamp(220px, 40vw, 480px);
+      display: flex; align-items: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 80% 50%, oklch(from var(--color-primary) calc(l + 0.15) c h / 0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, oklch(0 0 0 / 0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-pattern {
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.07;
+      background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
+      background-size: 20px 20px;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-8); width: 100%;
+    }
+    .hero-content { flex: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      background: oklch(1 0 0 / 0.15); color: #fff;
+      font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full); margin-bottom: var(--space-4);
+      border: 1px solid oklch(1 0 0 / 0.2);
+    }
+    .hero-title {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: var(--text-hero); color: #fff;
+      letter-spacing: -0.03em; line-height: 1.0;
+      margin-bottom: var(--space-3);
+    }
+    .hero-sub {
+      font-size: var(--text-base); color: oklch(1 0 0 / 0.8);
+      max-width: 45ch; margin-bottom: var(--space-6);
+    }
+    .hero-ctas { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+    .btn-hero-wpp {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      background: var(--color-wpp); color: #fff;
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-full); font-weight: 700;
+      font-size: var(--text-sm); box-shadow: var(--shadow-md);
+    }
+    .btn-hero-wpp:hover { background: var(--color-wpp-hover); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .btn-hero-ghost {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      background: oklch(1 0 0 / 0.12); color: #fff;
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-full); font-weight: 600;
+      font-size: var(--text-sm); border: 1px solid oklch(1 0 0 / 0.25);
+    }
+    .btn-hero-ghost:hover { background: oklch(1 0 0 / 0.2); transform: translateY(-2px); }
+
+    /* ─── Hero brand logo big ────────────────────────── */
+    .hero-logo-area {
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-brand-logo {
+      width: clamp(100px, 18vw, 200px);
+      height: clamp(100px, 18vw, 200px);
+      background: oklch(1 0 0 / 0.12);
+      border: 2px solid oklch(1 0 0 / 0.2);
+      border-radius: var(--radius-xl);
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+    .hero-brand-logo svg { width: 65%; height: 65%; }
+
+    /* ─── Section Header ─────────────────────────────── */
+    .section-header { text-align: center; margin-bottom: var(--space-10); }
+    .section-header h2 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: var(--text-xl); color: var(--color-text);
+      letter-spacing: -0.02em; margin-bottom: var(--space-2);
+    }
+    .section-header p { color: var(--color-text-muted); font-size: var(--text-base); max-width: 60ch; margin-inline: auto; }
+
+    /* ─── Products Section ───────────────────────────── */
+    .products-section { padding-block: clamp(var(--space-12), 6vw, var(--space-20)); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-6);
+    }
+
+    /* ─── Product Card ───────────────────────────────── */
+    .product-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid oklch(from var(--color-text) l c h / 0.07);
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .product-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .product-media {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: var(--color-surface-2);
+    }
+
+    .product-carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .carousel-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-card:hover .carousel-slide img {
+      transform: scale(1.04);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: var(--space-3);
+      left: var(--space-3);
+      z-index: 3;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: #fff;
+    }
+
+    .product-badge.novo { background: #2563eb; }
+    .product-badge.destaque { background: var(--color-primary); }
+    .product-badge.promo { background: #16a34a; }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      background: oklch(0 0 0 / 0.35);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+    }
+
+    .carousel-arrow.prev { left: var(--space-3); }
+    .carousel-arrow.next { right: var(--space-3); }
+
+    .carousel-arrow:hover {
+      background: oklch(0 0 0 / 0.5);
+    }
+
+    .carousel-dots {
+      position: absolute;
+      left: 50%;
+      bottom: var(--space-3);
+      transform: translateX(-50%);
+      display: flex;
+      gap: var(--space-2);
+      z-index: 2;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: var(--radius-full);
+      background: oklch(1 0 0 / 0.45);
+      border: 1px solid oklch(1 0 0 / 0.2);
+    }
+
+    .carousel-dot.active {
+      background: #fff;
+    }
+
+    .product-body {
+      padding: var(--space-5);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .product-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: var(--text-base);
+      color: var(--color-text);
+    }
+
+    .product-desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      flex: 1;
+    }
+
+    .product-price {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: var(--text-lg);
+      color: var(--color-primary);
+    }
+
+    .product-price .old-price {
+      font-size: var(--text-sm);
+      color: var(--color-text-faint);
+      text-decoration: line-through;
+      font-weight: 400;
+    }
+
+    .product-price .current-price {
+      font-size: var(--text-lg);
+    }
+    .product-actions { padding: var(--space-4) var(--space-5); padding-top: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+    .btn-wpp {
+      display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+      background: var(--color-wpp); color: #fff;
+      padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg);
+      font-size: var(--text-sm); font-weight: 700;
+      border: none; width: 100%;
+    }
+    .btn-wpp:hover { background: var(--color-wpp-hover); }
+    .btn-wpp:active { transform: scale(0.98); }
+
+    .btn-marketplace {
+      display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+      background: none; color: var(--color-text-muted);
+      padding: var(--space-2) var(--space-4); border-radius: var(--radius-lg);
+      font-size: var(--text-sm); font-weight: 600;
+      border: 1px solid var(--color-border); width: 100%;
+    }
+    .btn-marketplace:hover { background: var(--color-surface-2); color: var(--color-text); border-color: var(--color-text-muted); }
+    .btn-marketplace:active { transform: scale(0.98); }
+
+    /* ─── Category Tabs ──────────────────────────────── */
+    .category-tabs { display: flex; gap: var(--space-2); flex-wrap: wrap; justify-content: center; margin-bottom: var(--space-8); }
+    .cat-tab {
+      padding: var(--space-2) var(--space-4); border-radius: var(--radius-full);
+      font-size: var(--text-sm); font-weight: 600; border: 1px solid var(--color-border);
+      color: var(--color-text-muted); background: var(--color-surface);
+    }
+    .cat-tab:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .cat-tab.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+
+    /* ─── Footer ─────────────────────────────────────── */
+    .site-footer {
+      background: var(--color-surface-offset);
+      border-top: 1px solid var(--color-divider);
+      padding-block: var(--space-12);
+    }
+    .footer-inner {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-8);
+    }
+    .footer-brand { display: flex; flex-direction: column; gap: var(--space-3); }
+    .footer-brand-logo { display: flex; align-items: center; gap: var(--space-3); }
+    .footer-brand-logo svg { width: 36px; height: 36px; }
+    .footer-brand-name { font-family: var(--font-display); font-weight: 800; font-size: var(--text-lg); color: var(--color-primary); }
+    .footer-desc { font-size: var(--text-sm); color: var(--color-text-muted); max-width: 32ch; }
+    .footer-col h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--text-sm); color: var(--color-text); margin-bottom: var(--space-4); text-transform: uppercase; letter-spacing: 0.06em; }
+    .footer-col ul { display: flex; flex-direction: column; gap: var(--space-2); }
+    .footer-col ul li a { font-size: var(--text-sm); color: var(--color-text-muted); }
+    .footer-col ul li a:hover { color: var(--color-primary); }
+    .footer-contact-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      background: var(--color-wpp); color: #fff; padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 700;
+      margin-top: var(--space-2);
+    }
+    .footer-contact-btn:hover { background: var(--color-wpp-hover); }
+    .footer-bottom { margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--color-divider); text-align: center; color: var(--color-text-faint); font-size: var(--text-xs); }
+
+    /* ─── Responsive ─────────────────────────────────── */
+    @media (max-width: 767px) {
+      .hero-logo-area { display: none; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .topbar-wpp-btn span { display: none; }
+    }
+    @media (max-width: 500px) {
+      .hero-title { font-size: clamp(2rem, 10vw, 3.5rem); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Skip link -->
+<a href="#products" class="sr-only" style="position:absolute;top:0;left:0;z-index:999;padding:var(--space-3) var(--space-4);background:var(--color-primary);color:#fff;border-radius:0 0 var(--radius-md) 0;">Pular para produtos</a>
+
+<!-- ─── Topbar ─────────────────────────────────────── -->
+<header class="topbar" role="banner">
+  <div class="container">
+    <div class="topbar-inner">
+      <a href="#" class="topbar-logo" aria-label="Página inicial da loja">
+        <img src="OUTLET DAS MARCAS.png" alt="Logo Outlet das Marcas" style="width: 40px; height: 40px; border-radius: 8px;">
+        <div class="topbar-logo-text">
+          <span class="brand-name">Outlet das Marcas</span>
+          <span class="brand-tagline">Vitrine Oficial</span>
+        </div>
+      </a>
+      <div class="topbar-actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="Alternar modo claro/escuro">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <a href="https://wa.me/5500000000000?text=Olá!%20Vi%20a%20vitrine%20e%20quero%20mais%20informações." target="_blank" rel="noopener noreferrer" class="topbar-wpp-btn" aria-label="Fale conosco pelo WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ─── Hero Banner ────────────────────────────────── -->
+<section class="hero" aria-label="Banner principal da loja">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-pattern" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge" aria-label="Novidades">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Novidades da semana
+        </div>
+        <h1 class="hero-title">Outlet das Marcas</h1>
+        <p class="hero-sub">Encontre os melhores produtos com qualidade e preço justo. Compre pelo WhatsApp ou acesse nosso marketplace.</p>
+        <div class="hero-ctas">
+          <a href="https://wa.me/5500000000000?text=Olá!%20Quero%20ver%20os%20produtos." target="_blank" rel="noopener noreferrer" class="btn-hero-wpp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Falar no WhatsApp
+          </a>
+          <a href="#products" class="btn-hero-ghost">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Ver produtos
+          </a>
+        </div>
+      </div>
+      <div class="hero-logo-area" aria-hidden="true">
+        <div class="hero-brand-logo">
+          <img src="OUTLET DAS MARCAS.png" alt="Logo Outlet das Marcas">
+            <path d="M10 28 L14 16 L20 24 L26 12 L30 28" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="20" cy="10" r="4" fill="#fff" opacity="0.9"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Products Section ───────────────────────────── -->
+<main id="products">
+  <section class="products-section" aria-label="Catálogo de produtos">
+    <div class="container">
+      <div class="section-header">
+        <h2>Nossos Produtos</h2>
+        <p>Clique em qualquer produto para comprar direto pelo WhatsApp ou pelo marketplace.</p>
+      </div>
+
+      <!-- Category tabs -->
+      <nav class="category-tabs" aria-label="Filtro por categoria">
+        <button class="cat-tab active" onclick="filterCategory('todos', this)">Todos</button>
+        <button class="cat-tab" onclick="filterCategory('conjuntos', this)">Conjuntos</button>
+        <button class="cat-tab" onclick="filterCategory('casual', this)">Moda Casual</button>
+        <button class="cat-tab" onclick="filterCategory('social', this)">Moda Social</button>
+        <button class="cat-tab" onclick="filterCategory('fitness', this)">Moda Fitness</button>
+        <button class="cat-tab" onclick="filterCategory('praia', this)">Moda Praia</button>
+      </nav>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="products-grid">
+        <!-- INICIO_PRODUTOS -->
+
+        <article class="product-card" data-cat="conjuntos" data-product-id="1">
+          <div class="product-media">
+            <span class="product-badge destaque">⭐ Destaque</span>
+            <div class="product-carousel" data-carousel>
+              
+              <div class="carousel-track">
+                
+                <a href="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-C3PCS-1442%20-%20CONJUNTO%203%20P%C3%87S%20(TOP%2C%20SHORT%20E%20SOBRETUDO)/CAS-C3PCS-1442-01.jpg"
+                   class="carousel-slide glightbox"
+                   data-gallery="produto-1"
+                   data-glightbox="title: CONJUNTO 3 PCS (TOP C/ SHORT E SOBRETUDO)">
+                  <img src="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-C3PCS-1442%20-%20CONJUNTO%203%20P%C3%87S%20(TOP%2C%20SHORT%20E%20SOBRETUDO)/CAS-C3PCS-1442-01.jpg"
+                       alt="CONJUNTO 3 PCS (TOP C/ SHORT E SOBRETUDO) - imagem 1"
+                       width="400"
+                       height="400"
+                       loading="lazy" />
+                </a>
+        
+              </div>
+            </div>
+          </div>
+
+          <div class="product-body">
+            <h3 class="product-name">CONJUNTO 3 PCS (TOP C/ SHORT E SOBRETUDO)</h3>
+            <p class="product-desc">Conjunto com 3 peças</p>
+            
+            <div class="product-price">
+              
+              <span class="current-price">R$ R$ 100,00</span>
+            </div>
+    
+          </div>
+
+          
+          <div class="product-actions">
+            <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" class="btn-wpp">
+              Comprar pelo WhatsApp
+            </a>
+            
+          </div>
+    
+        </article>
+    
+
+        <article class="product-card" data-cat="casual" data-product-id="2">
+          <div class="product-media">
+            <span class="product-badge novo">🆕 Novo</span>
+            <div class="product-carousel" data-carousel>
+              
+              <div class="carousel-track">
+                
+                <a href="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-VSTAS-3554%20-%20VESTIDO%20MID%20ASSIMETRICO/CAS-VSTAS-3554-01.jpg"
+                   class="carousel-slide glightbox"
+                   data-gallery="produto-2"
+                   data-glightbox="title: Vestido midi assimétrico">
+                  <img src="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-VSTAS-3554%20-%20VESTIDO%20MID%20ASSIMETRICO/CAS-VSTAS-3554-01.jpg"
+                       alt="Vestido midi assimétrico - imagem 1"
+                       width="400"
+                       height="400"
+                       loading="lazy" />
+                </a>
+        
+              </div>
+            </div>
+          </div>
+
+          <div class="product-body">
+            <h3 class="product-name">Vestido midi assimétrico</h3>
+            <p class="product-desc">vestido midi assimétrico</p>
+            
+            <div class="product-price">
+              
+              <span class="current-price">R$ R$ 100,00</span>
+            </div>
+    
+          </div>
+
+          
+          <div class="product-actions">
+            <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" class="btn-wpp">
+              Comprar pelo WhatsApp
+            </a>
+            
+          </div>
+    
+        </article>
+    
+
+        <article class="product-card" data-cat="casual" data-product-id="3">
+          <div class="product-media">
+            <span class="product-badge novo">🆕 Novo</span>
+            <div class="product-carousel" data-carousel>
+              
+              <button class="carousel-arrow prev" type="button" aria-label="Imagem anterior">‹</button>
+              <button class="carousel-arrow next" type="button" aria-label="Próxima imagem">›</button>
+              <div class="carousel-dots" aria-label="Selecionar imagem"></div>
+    
+              <div class="carousel-track">
+                
+                <a href="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-VSTMU-4970%20-%20VESTIDO%20MULLET/CAS-VSTMU-4970-01.jpg"
+                   class="carousel-slide glightbox"
+                   data-gallery="produto-3"
+                   data-glightbox="title: Vestido midi mullet">
+                  <img src="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-VSTMU-4970%20-%20VESTIDO%20MULLET/CAS-VSTMU-4970-01.jpg"
+                       alt="Vestido midi mullet - imagem 1"
+                       width="400"
+                       height="400"
+                       loading="lazy" />
+                </a>
+        
+
+                <a href="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-VSTMU-4970%20-%20VESTIDO%20MULLET/CAS-VSTMU-4970-02.jpg"
+                   class="carousel-slide glightbox"
+                   data-gallery="produto-3"
+                   data-glightbox="title: Vestido midi mullet">
+                  <img src="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-VSTMU-4970%20-%20VESTIDO%20MULLET/CAS-VSTMU-4970-02.jpg"
+                       alt="Vestido midi mullet - imagem 2"
+                       width="400"
+                       height="400"
+                       loading="lazy" />
+                </a>
+        
+
+                <a href="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-VSTMU-4970%20-%20VESTIDO%20MULLET/CAS-VSTMU-4970-03.jpg"
+                   class="carousel-slide glightbox"
+                   data-gallery="produto-3"
+                   data-glightbox="title: Vestido midi mullet">
+                  <img src="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-VSTMU-4970%20-%20VESTIDO%20MULLET/CAS-VSTMU-4970-03.jpg"
+                       alt="Vestido midi mullet - imagem 3"
+                       width="400"
+                       height="400"
+                       loading="lazy" />
+                </a>
+        
+
+                <a href="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-VSTMU-4970%20-%20VESTIDO%20MULLET/CAS-VSTMU-4970-04.jpg"
+                   class="carousel-slide glightbox"
+                   data-gallery="produto-3"
+                   data-glightbox="title: Vestido midi mullet">
+                  <img src="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-VSTMU-4970%20-%20VESTIDO%20MULLET/CAS-VSTMU-4970-04.jpg"
+                       alt="Vestido midi mullet - imagem 4"
+                       width="400"
+                       height="400"
+                       loading="lazy" />
+                </a>
+        
+              </div>
+            </div>
+          </div>
+
+          <div class="product-body">
+            <h3 class="product-name">Vestido midi mullet</h3>
+            <p class="product-desc">Vestido mullet</p>
+            
+            <div class="product-price">
+              
+              <span class="current-price">R$ R$ 80,00</span>
+            </div>
+    
+          </div>
+
+          
+          <div class="product-actions">
+            <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" class="btn-wpp">
+              Comprar pelo WhatsApp
+            </a>
+            
+          </div>
+    
+        </article>
+    
+
+        <article class="product-card" data-cat="social" data-product-id="4">
+          <div class="product-media">
+            <span class="product-badge novo">🆕 Novo</span>
+            <div class="product-carousel" data-carousel>
+              
+              <div class="carousel-track">
+                
+                <a href="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-VSTDV-3485%20-%20VESTIDO%20LONGO%20DECOTE%20V/CAS-VSTDV-3485-01.jpg"
+                   class="carousel-slide glightbox"
+                   data-gallery="produto-4"
+                   data-glightbox="title: Vestido longo">
+                  <img src="https://raw.githubusercontent.com/gdss18007/catalogo/refs/heads/master/catalogo/CAS-VSTDV-3485%20-%20VESTIDO%20LONGO%20DECOTE%20V/CAS-VSTDV-3485-01.jpg"
+                       alt="Vestido longo - imagem 1"
+                       width="400"
+                       height="400"
+                       loading="lazy" />
+                </a>
+        
+              </div>
+            </div>
+          </div>
+
+          <div class="product-body">
+            <h3 class="product-name">Vestido longo</h3>
+            <p class="product-desc">vestido longo</p>
+            
+            <div class="product-price">
+              
+              <span class="current-price">R$ R$ 100,00</span>
+            </div>
+    
+          </div>
+
+          
+          <div class="product-actions">
+            <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" class="btn-wpp">
+              Comprar pelo WhatsApp
+            </a>
+            
+          </div>
+    
+        </article>
+    
+        <!-- FIM_PRODUTOS -->
+      </div><!-- /products-grid -->
+  </section>
+</main>
+
+<!-- ─── Footer ─────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <img src="OUTLET DAS MARCAS.png" alt="Logo Outlet das Marcas" style="width: 40px; height: 40px; border-radius: 8px;">
+          <span class="footer-brand-name">Outlet das Marcas</span>
+        </div>
+        <p class="footer-desc">Produtos de qualidade com atendimento personalizado. Fale direto com a gente!</p>
+        <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" class="footer-contact-btn" aria-label="Entre em contato pelo WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Falar no WhatsApp
+        </a>
+      </div>
+      <div class="footer-col">
+        <h3>Categorias</h3>
+        <ul>
+          <li><a href="#products">Moda Casual</a></li>
+          <li><a href="#products">Moda Social</a></li>
+          <li><a href="#products">Moda Fitness</a></li>
+          <li><a href="#products">Moda Praia</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contato</h3>
+        <ul>
+          <li><a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://shopee.com.br" target="_blank" rel="noopener noreferrer">Shopee</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Outlet das marcas · Vitrine online — os preços e disponibilidade podem variar. Consulte pelo WhatsApp.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── Scripts ────────────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+  (function () {
+    const toggle = document.querySelector('[data-theme-toggle]');
+    const root = document.documentElement;
+    let theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+    function updateThemeIcon() {
+      if (!toggle) return;
+      toggle.innerHTML = theme === 'dark'
+        ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+        : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+
+      toggle.setAttribute('aria-label', 'Alternar para modo ' + (theme === 'dark' ? 'claro' : 'escuro'));
+    }
+
+    root.setAttribute('data-theme', theme);
+    updateThemeIcon();
+
+    toggle && toggle.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', theme);
+      updateThemeIcon();
+    });
+  })();
+
+  function filterCategory(cat, btn) {
+    const cards = document.querySelectorAll('.product-card');
+    const tabs = document.querySelectorAll('.cat-tab');
+
+    tabs.forEach(tab => tab.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    cards.forEach(card => {
+      const productCat = (card.dataset.cat || '').toLowerCase();
+      const show = cat === 'todos' || productCat === cat;
+      card.style.display = show ? '' : 'none';
+    });
+  }
+
+  function initProductCarousels() {
+    const carousels = document.querySelectorAll('[data-carousel]');
+
+    carousels.forEach((carousel) => {
+      const track = carousel.querySelector('.carousel-track');
+      const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+      const prevBtn = carousel.querySelector('.carousel-arrow.prev');
+      const nextBtn = carousel.querySelector('.carousel-arrow.next');
+      const dotsWrap = carousel.querySelector('.carousel-dots');
+
+      if (!track || slides.length === 0) return;
+
+      let currentIndex = 0;
+
+      function updateCarousel() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        if (dotsWrap) {
+          const dots = dotsWrap.querySelectorAll('.carousel-dot');
+          dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+            dot.setAttribute('aria-current', index === currentIndex ? 'true' : 'false');
+          });
+        }
+
+        const singleImage = slides.length <= 1;
+        if (prevBtn) prevBtn.style.display = singleImage ? 'none' : 'flex';
+        if (nextBtn) nextBtn.style.display = singleImage ? 'none' : 'flex';
+        if (dotsWrap) dotsWrap.style.display = singleImage ? 'none' : 'flex';
+      }
+
+      function goToSlide(index) {
+        if (slides.length <= 1) return;
+        currentIndex = (index + slides.length) % slides.length;
+        updateCarousel();
+      }
+
+      if (dotsWrap && slides.length > 1 && dotsWrap.children.length === 0) {
+        slides.forEach((_, index) => {
+          const dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'carousel-dot';
+          dot.setAttribute('aria-label', `Ir para imagem ${index + 1}`);
+          dot.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            goToSlide(index);
+          });
+          dotsWrap.appendChild(dot);
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          goToSlide(currentIndex - 1);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          goToSlide(currentIndex + 1);
+        });
+      }
+
+      updateCarousel();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initProductCarousels();
+    GLightbox({ selector: '.glightbox' });
+  });
+</script>
+</body>
+</html>
