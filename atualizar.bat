@@ -19,6 +19,6 @@ git push origin master
 
 echo.
 echo ==========================================
-echo Catalogo atualizado com sucesso no GitHub!
+echo Catalogo atualizado com sucesso!
 echo ==========================================
 pause
